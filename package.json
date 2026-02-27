@@ -1,0 +1,55 @@
+{
+  "name": "@niloptic/sportradar-client",
+  "version": "0.1.0",
+  "description": "JavaScript client for the Sportradar APIs.",
+  "license": "MIT",
+  "author": "Matthew Stewart",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niloptic/sportradar-client.git"
+  },
+  "bugs": {
+    "url": "https://github.com/niloptic/sportradar-client/issues"
+  },
+  "homepage": "https://github.com/niloptic/sportradar-client#readme",
+  "keywords": [
+    "sportradar",
+    "sports",
+    "api",
+    "client"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "prepublishOnly": "npm run build",
+    "test:live": "npm run build && node scripts/live-smoke-test.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^3.2.4",
+    "dotenv": "^16.6.1",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
+}

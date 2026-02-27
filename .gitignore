@@ -1,0 +1,22 @@
+# Environment
+.env
+
+# Dependencies
+node_modules
+
+# Build output
+dist
+
+# Test artifacts
+coverage
+.nyc_output
+test-results
+playwright-report
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local schema files
+NCAAMB_schema
