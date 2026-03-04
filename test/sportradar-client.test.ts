@@ -155,6 +155,10 @@ describe("SportradarClient", () => {
         expectedPath: "/ncaamb/trial/v7/en/league/teams.json"
       },
       {
+        call: () => client.getNcaambLeagueHierarchy(),
+        expectedPath: "/ncaamb/trial/v8/en/league/hierarchy.json"
+      },
+      {
         call: () => client.getNcaambTeamProfile("team123"),
         expectedPath: "/ncaamb/trial/v8/en/teams/team123/profile.json"
       },

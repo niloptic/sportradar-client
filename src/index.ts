@@ -252,6 +252,23 @@ export interface NcaambTeamsResponse extends NcaambOrganization {
   };
 }
 
+export interface NcaambLeagueHierarchyConference extends NcaambOrganization {
+  teams?: {
+    team?: NcaambTeamBase[];
+  };
+}
+
+export interface NcaambLeagueHierarchyDivision extends NcaambOrganization {
+  conferences?: {
+    conference?: NcaambLeagueHierarchyConference[];
+  };
+}
+
+export interface NcaambLeagueHierarchyResponse {
+  league?: NcaambOrganization;
+  divisions?: NcaambLeagueHierarchyDivision[];
+}
+
 export interface NcaambTeamProfileResponse extends NcaambTeamBase {
   venue?: NcaambVenue;
   hierarchy?: {
@@ -529,6 +546,12 @@ export class SportradarClient {
   async getNcaambTeams(): Promise<NcaambTeamsResponse> {
     return this.getJson<NcaambTeamsResponse>(
       this.buildNcaambPath(`v7/${this.language}/league/teams.json`)
+    );
+  }
+
+  async getNcaambLeagueHierarchy(): Promise<NcaambLeagueHierarchyResponse> {
+    return this.getJson<NcaambLeagueHierarchyResponse>(
+      this.buildNcaambPath(`v8/${this.language}/league/hierarchy.json`)
     );
   }
 
