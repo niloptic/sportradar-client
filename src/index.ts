@@ -508,8 +508,9 @@ export class SportradarClient {
   }
 
   async getNcaambDailySchedule(date: `${number}-${number}-${number}`): Promise<NcaambDailyScheduleResponse> {
+    const datePath = date.replace(/-/g, "/");
     return this.getJson<NcaambDailyScheduleResponse>(
-      this.buildNcaambPath(`v5/${this.language}/games/${date}/schedule.json`)
+      this.buildNcaambPath(`v8/${this.language}/games/${datePath}/schedule.json`)
     );
   }
 

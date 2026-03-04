@@ -140,7 +140,7 @@ describe("SportradarClient", () => {
     }> = [
       {
         call: () => client.getNcaambDailySchedule("2026-02-27"),
-        expectedPath: "/ncaamb/trial/v5/en/games/2026-02-27/schedule.json"
+        expectedPath: "/ncaamb/trial/v8/en/games/2026/02/27/schedule.json"
       },
       {
         call: () => client.getNcaambGameSummary("game123"),
