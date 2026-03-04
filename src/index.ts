@@ -480,6 +480,31 @@ export interface NcaambTransferPortalResponse {
   [key: string]: unknown;
 }
 
+export interface NcaambDailyChangesItem {
+  id?: string;
+  season_id?: string;
+  last_modified?: string;
+  [key: string]: unknown;
+}
+
+export interface NcaambDailyChangesStandingsItem {
+  id?: string;
+  name?: string;
+  market?: string;
+  last_modified?: string;
+  [key: string]: unknown;
+}
+
+export interface NcaambDailyChangesResponse {
+  league?: NcaambOrganization;
+  start_time?: string;
+  end_time?: string;
+  schedule?: NcaambDailyChangesItem[];
+  results?: NcaambDailyChangesItem[];
+  standings?: NcaambDailyChangesStandingsItem[];
+  [key: string]: unknown;
+}
+
 export class SportradarClient {
   private readonly apiKey: string;
   private readonly baseUrl: string;
@@ -552,6 +577,13 @@ export class SportradarClient {
   async getNcaambLeagueHierarchy(): Promise<NcaambLeagueHierarchyResponse> {
     return this.getJson<NcaambLeagueHierarchyResponse>(
       this.buildNcaambPath(`v8/${this.language}/league/hierarchy.json`)
+    );
+  }
+
+  async getNcaambDailyChanges(date: `${number}-${number}-${number}`): Promise<NcaambDailyChangesResponse> {
+    const [year, month, day] = date.split("-");
+    return this.getJson<NcaambDailyChangesResponse>(
+      this.buildNcaambPath(`v8/${this.language}/league/${year}/${month}/${day}/changes.json`)
     );
   }
 

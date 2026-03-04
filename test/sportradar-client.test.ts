@@ -159,6 +159,10 @@ describe("SportradarClient", () => {
         expectedPath: "/ncaamb/trial/v8/en/league/hierarchy.json"
       },
       {
+        call: () => client.getNcaambDailyChanges("2025-01-06"),
+        expectedPath: "/ncaamb/trial/v8/en/league/2025/01/06/changes.json"
+      },
+      {
         call: () => client.getNcaambTeamProfile("team123"),
         expectedPath: "/ncaamb/trial/v8/en/teams/team123/profile.json"
       },

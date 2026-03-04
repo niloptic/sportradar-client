@@ -84,7 +84,7 @@ All NCAA methods are instance methods on `SportradarClient`.
 ### NCAA Men's Basketball Endpoints
 
 - `getNcaambDailySchedule(date)`
-  - Path: `v5/{language}/games/{date}/schedule.json`
+  - Path: `v8/{language}/games/{year}/{month}/{day}/schedule.json`
 - `getNcaambGameSummary(gameId)`
   - Path: `v8/{language}/games/{gameId}/summary.json`
 - `getNcaambPlayByPlay(gameId)`
@@ -93,6 +93,8 @@ All NCAA methods are instance methods on `SportradarClient`.
   - Path: `v7/{language}/league/teams.json`
 - `getNcaambLeagueHierarchy()`
   - Path: `v8/{language}/league/hierarchy.json`
+- `getNcaambDailyChanges(date)`
+  - Path: `v8/{language}/league/{year}/{month}/{day}/changes.json`
 - `getNcaambTeamProfile(teamId)`
   - Path: `v8/{language}/teams/{teamId}/profile.json`
 - `getNcaambPlayerProfile(playerId)`
@@ -123,6 +125,7 @@ The package exports response models and shared types, including:
 - `NcaambPlayByPlayResponse`
 - `NcaambTeamsResponse`
 - `NcaambLeagueHierarchyResponse`
+- `NcaambDailyChangesResponse`
 - `NcaambTeamProfileResponse`
 - `NcaambPlayerProfileResponse`
 - `NcaambSeasonsResponse`
