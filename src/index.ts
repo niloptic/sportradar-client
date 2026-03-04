@@ -556,6 +556,15 @@ export class SportradarClient {
     );
   }
 
+  async getNcaambSeasonSchedule(
+    seasonYear: number,
+    seasonType: NcaambSeasonTypeCode
+  ): Promise<NcaambDailyScheduleResponse> {
+    return this.getJson<NcaambDailyScheduleResponse>(
+      this.buildNcaambPath(`v8/${this.language}/games/${seasonYear}/${seasonType}/schedule.json`)
+    );
+  }
+
   async getNcaambGameSummary(gameId: string): Promise<NcaambGameSummaryResponse> {
     return this.getJson<NcaambGameSummaryResponse>(
       this.buildNcaambPath(`v8/${this.language}/games/${gameId}/summary.json`)

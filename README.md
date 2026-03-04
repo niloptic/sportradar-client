@@ -85,6 +85,8 @@ All NCAA methods are instance methods on `SportradarClient`.
 
 - `getNcaambDailySchedule(date)`
   - Path: `v8/{language}/games/{year}/{month}/{day}/schedule.json`
+- `getNcaambSeasonSchedule(seasonYear, seasonType)`
+  - Path: `v8/{language}/games/{season_year}/{season_type}/schedule.json`
 - `getNcaambGameSummary(gameId)`
   - Path: `v8/{language}/games/{gameId}/summary.json`
 - `getNcaambPlayByPlay(gameId)`
