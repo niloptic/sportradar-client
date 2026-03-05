@@ -172,6 +172,50 @@ export interface NcaambGameSummaryResponse extends NcaambGameCore {
   };
 }
 
+export interface NcaambBoxscoreScoringSplit {
+  type?: string;
+  number?: number;
+  sequence?: number;
+  points?: number;
+  [key: string]: unknown;
+}
+
+export interface NcaambBoxscoreLeaderPlayer extends NcaambPlayerBase {
+  statistics?: Record<string, unknown>;
+}
+
+export interface NcaambBoxscoreTeamLeaders {
+  points?: NcaambBoxscoreLeaderPlayer[];
+  rebounds?: NcaambBoxscoreLeaderPlayer[];
+  assists?: NcaambBoxscoreLeaderPlayer[];
+  [key: string]: unknown;
+}
+
+export interface NcaambBoxscoreTeam extends NcaambTeamBase {
+  scoring?: NcaambBoxscoreScoringSplit[];
+  leaders?: NcaambBoxscoreTeamLeaders;
+}
+
+export interface NcaambBoxscoreBroadcast {
+  type?: string;
+  locale?: string;
+  network?: string;
+  channel?: string;
+  [key: string]: unknown;
+}
+
+export interface NcaambBoxscoreResponse extends NcaambGameCore {
+  title?: string;
+  neutral_site?: boolean;
+  conference_game?: boolean;
+  track_on_court?: boolean;
+  entry_mode?: string;
+  season?: NcaambSeason;
+  broadcasts?: NcaambBoxscoreBroadcast[];
+  home?: NcaambBoxscoreTeam;
+  away?: NcaambBoxscoreTeam;
+}
+
 export interface NcaambPbpStatistic {
   team?: {
     id: string;
@@ -568,6 +612,12 @@ export class SportradarClient {
   async getNcaambGameSummary(gameId: string): Promise<NcaambGameSummaryResponse> {
     return this.getJson<NcaambGameSummaryResponse>(
       this.buildNcaambPath(`v8/${this.language}/games/${gameId}/summary.json`)
+    );
+  }
+
+  async getNcaambBoxscore(gameId: string): Promise<NcaambBoxscoreResponse> {
+    return this.getJson<NcaambBoxscoreResponse>(
+      this.buildNcaambPath(`v8/${this.language}/games/${gameId}/boxscore.json`)
     );
   }
 

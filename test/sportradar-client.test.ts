@@ -151,6 +151,10 @@ describe("SportradarClient", () => {
         expectedPath: "/ncaamb/trial/v8/en/games/game123/summary.json"
       },
       {
+        call: () => client.getNcaambBoxscore("game123"),
+        expectedPath: "/ncaamb/trial/v8/en/games/game123/boxscore.json"
+      },
+      {
         call: () => client.getNcaambPlayByPlay("game123"),
         expectedPath: "/ncaamb/trial/v8/en/games/game123/pbp.json"
       },

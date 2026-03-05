@@ -89,6 +89,8 @@ All NCAA methods are instance methods on `SportradarClient`.
   - Path: `v8/{language}/games/{season_year}/{season_type}/schedule.json`
 - `getNcaambGameSummary(gameId)`
   - Path: `v8/{language}/games/{gameId}/summary.json`
+- `getNcaambBoxscore(gameId)`
+  - Path: `v8/{language}/games/{gameId}/boxscore.json`
 - `getNcaambPlayByPlay(gameId)`
   - Path: `v8/{language}/games/{gameId}/pbp.json`
 - `getNcaambTeams()`
@@ -124,6 +126,7 @@ The package exports response models and shared types, including:
 
 - `NcaambDailyScheduleResponse`
 - `NcaambGameSummaryResponse`
+- `NcaambBoxscoreResponse`
 - `NcaambPlayByPlayResponse`
 - `NcaambTeamsResponse`
 - `NcaambLeagueHierarchyResponse`
