@@ -152,6 +152,146 @@ export interface NcaambDailyScheduleResponse extends NcaambOrganization {
   };
 }
 
+export interface NcaambTournamentScheduleTournament {
+  id: string;
+  name?: string;
+  location?: string;
+  status?: string;
+  start_date?: string;
+  end_date?: string;
+  [key: string]: unknown;
+}
+
+export interface NcaambTournamentScheduleResponse {
+  league?: NcaambOrganization;
+  season?: NcaambSeason;
+  tournaments?: NcaambTournamentScheduleTournament[];
+  [key: string]: unknown;
+}
+
+export interface NcaambTournamentScheduleSource extends NcaambGameCore {
+  home_team?: string;
+  away_team?: string;
+  outcome?: "win" | "loss" | string;
+}
+
+export interface NcaambTournamentScheduleTeam extends NcaambTeamBase {
+  seed?: number;
+  source?: NcaambTournamentScheduleSource;
+}
+
+export interface NcaambTournamentScheduleRoundGame extends NcaambGameCore {
+  home_points?: number;
+  away_points?: number;
+  track_on_court?: boolean;
+  broadcasts?: NcaambBoxscoreBroadcast[];
+  home?: NcaambTournamentScheduleTeam;
+  away?: NcaambTournamentScheduleTeam;
+}
+
+export interface NcaambTournamentScheduleRound {
+  id: string;
+  sequence?: number;
+  name?: string;
+  games?: NcaambTournamentScheduleRoundGame[];
+  bracketed?: unknown[];
+  [key: string]: unknown;
+}
+
+export interface NcaambTournamentDetailsResponse extends NcaambTournamentScheduleTournament {
+  league?: NcaambOrganization;
+  season?: NcaambSeason;
+  rounds?: NcaambTournamentScheduleRound[];
+  [key: string]: unknown;
+}
+
+export interface NcaambTournamentTeamStatisticsSplit {
+  games_played?: number;
+  games_started?: number;
+  minutes?: number;
+  field_goals_made?: number;
+  field_goals_att?: number;
+  field_goals_pct?: number;
+  two_points_made?: number;
+  two_points_att?: number;
+  two_points_pct?: number;
+  three_points_made?: number;
+  three_points_att?: number;
+  three_points_pct?: number;
+  blocked_att?: number;
+  free_throws_made?: number;
+  free_throws_att?: number;
+  free_throws_pct?: number;
+  offensive_rebounds?: number;
+  defensive_rebounds?: number;
+  off_rebounds?: number;
+  def_rebounds?: number;
+  rebounds?: number;
+  assists?: number;
+  turnovers?: number;
+  assists_turnover_ratio?: number;
+  steals?: number;
+  blocks?: number;
+  personal_fouls?: number;
+  tech_fouls?: number;
+  points?: number;
+  fast_break_pts?: number;
+  flagrant_fouls?: number;
+  points_off_turnovers?: number;
+  second_chance_pts?: number;
+  ejections?: number;
+  foulouts?: number;
+  points_in_paint?: number;
+  efficiency?: number;
+  true_shooting_att?: number;
+  true_shooting_pct?: number;
+  [key: string]: unknown;
+}
+
+export interface NcaambTournamentTeamStatisticsRecord {
+  total?: NcaambTournamentTeamStatisticsSplit;
+  average?: NcaambTournamentTeamStatisticsSplit;
+  [key: string]: unknown;
+}
+
+export interface NcaambTournamentTeamStatisticsPlayer extends NcaambPlayerBase {
+  total?: NcaambTournamentTeamStatisticsSplit;
+  average?: NcaambTournamentTeamStatisticsSplit;
+  [key: string]: unknown;
+}
+
+export interface NcaambTournamentTeamStatisticsResponse extends NcaambTournamentScheduleTournament {
+  league?: NcaambOrganization;
+  season?: NcaambSeason;
+  team?: NcaambTeamBase;
+  own_record?: NcaambTournamentTeamStatisticsRecord;
+  opponents?: NcaambTournamentTeamStatisticsRecord;
+  players?: NcaambTournamentTeamStatisticsPlayer[];
+  [key: string]: unknown;
+}
+
+export interface NcaambTournamentSummaryParticipant extends NcaambTeamBase {
+  type?: string;
+  seed?: number;
+  [key: string]: unknown;
+}
+
+export interface NcaambTournamentSummaryBracket {
+  id: string;
+  name?: string;
+  location?: string;
+  rank?: number;
+  participants?: NcaambTournamentSummaryParticipant[];
+  [key: string]: unknown;
+}
+
+export interface NcaambTournamentSummaryResponse extends NcaambTournamentScheduleTournament {
+  league?: NcaambOrganization;
+  season?: NcaambSeason;
+  brackets?: NcaambTournamentSummaryBracket[];
+  [key: string]: unknown;
+}
+
 export interface NcaambSummaryTeam extends NcaambTeamBase {
   scoring?: {
     quarter?: Array<{ number: number; points?: number; sequence: number }>;
@@ -606,6 +746,36 @@ export class SportradarClient {
   ): Promise<NcaambDailyScheduleResponse> {
     return this.getJson<NcaambDailyScheduleResponse>(
       this.buildNcaambPath(`v8/${this.language}/games/${seasonYear}/${seasonType}/schedule.json`)
+    );
+  }
+
+  async getNcaambTournamentSchedule(
+    seasonYear: number,
+    seasonType: NcaambSeasonTypeCode
+  ): Promise<NcaambTournamentScheduleResponse> {
+    return this.getJson<NcaambTournamentScheduleResponse>(
+      this.buildNcaambPath(`v8/${this.language}/tournaments/${seasonYear}/${seasonType}/schedule.json`)
+    );
+  }
+
+  async getNcaambTournamentScheduleById(tournamentId: string): Promise<NcaambTournamentDetailsResponse> {
+    return this.getJson<NcaambTournamentDetailsResponse>(
+      this.buildNcaambPath(`v8/${this.language}/tournaments/${tournamentId}/schedule.json`)
+    );
+  }
+
+  async getNcaambTournamentTeamStatistics(
+    tournamentId: string,
+    teamId: string
+  ): Promise<NcaambTournamentTeamStatisticsResponse> {
+    return this.getJson<NcaambTournamentTeamStatisticsResponse>(
+      this.buildNcaambPath(`v8/${this.language}/tournaments/${tournamentId}/teams/${teamId}/statistics.json`)
+    );
+  }
+
+  async getNcaambTournamentSummary(tournamentId: string): Promise<NcaambTournamentSummaryResponse> {
+    return this.getJson<NcaambTournamentSummaryResponse>(
+      this.buildNcaambPath(`v8/${this.language}/tournaments/${tournamentId}/summary.json`)
     );
   }
 

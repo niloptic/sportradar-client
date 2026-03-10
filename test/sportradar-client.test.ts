@@ -147,6 +147,22 @@ describe("SportradarClient", () => {
         expectedPath: "/ncaamb/trial/v8/en/games/2026/REG/schedule.json"
       },
       {
+        call: () => client.getNcaambTournamentSchedule(2026, "PST"),
+        expectedPath: "/ncaamb/trial/v8/en/tournaments/2026/PST/schedule.json"
+      },
+      {
+        call: () => client.getNcaambTournamentScheduleById("tournament123"),
+        expectedPath: "/ncaamb/trial/v8/en/tournaments/tournament123/schedule.json"
+      },
+      {
+        call: () => client.getNcaambTournamentTeamStatistics("tournament123", "team123"),
+        expectedPath: "/ncaamb/trial/v8/en/tournaments/tournament123/teams/team123/statistics.json"
+      },
+      {
+        call: () => client.getNcaambTournamentSummary("tournament123"),
+        expectedPath: "/ncaamb/trial/v8/en/tournaments/tournament123/summary.json"
+      },
+      {
         call: () => client.getNcaambGameSummary("game123"),
         expectedPath: "/ncaamb/trial/v8/en/games/game123/summary.json"
       },
